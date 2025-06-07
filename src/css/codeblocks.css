@@ -498,9 +498,7 @@ pre.code-styler-pre
 }
 
 pre.code-styler-pre div > [class*="code-styler-line-number"],
-.markdown-source-view
-	div[class*="HyperMD-codeblock"]
-	> [class*="code-styler-line-number"] {
+.markdown-source-view .HyperMD-codeblock > .code-styler-line-number {
 	width: var(--line-number-gutter-width);
 	min-width: var(--line-number-gutter-min-width);
 	padding-right: 8px;
