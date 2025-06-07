@@ -109,6 +109,53 @@ export function createCodeblockCodeMirrorExtensions(
 			},
 		}
 	);
+	const DebouncedLineDecoratorPlugin = ViewPlugin.fromClass(
+		class {
+			debounceTimer: NodeJS.Timeout | null = null;
+			debounceMs: number = 100;
+
+			constructor(readonly view: EditorView) {
+				setTimeout(() => {
+					view.dispatch({
+						effects: DebouncedLineDecorationsUpdateEffect.of(null),
+					});
+				}, this.debounceMs);
+			}
+
+			update(update: ViewUpdate) {
+				const foldDecorationsChanged =
+					update.startState.field(foldDecorations, false) !==
+					update.state.field(foldDecorations, false);
+
+				const hiddenDecorationsChanged =
+					update.startState.field(hiddenDecorations, false) !==
+					update.state.field(hiddenDecorations, false);
+
+				if (foldDecorationsChanged || hiddenDecorationsChanged) {
+					return;
+				}
+
+				if (update.docChanged || update.viewportChanged) {
+					if (this.debounceTimer) {
+						clearTimeout(this.debounceTimer);
+					}
+
+					this.debounceTimer = setTimeout(() => {
+						this.view.dispatch({
+							effects:
+								DebouncedLineDecorationsUpdateEffect.of(null),
+						});
+					}, this.debounceMs);
+				}
+			}
+
+			destroy() {
+				if (this.debounceTimer) {
+					clearTimeout(this.debounceTimer);
+				}
+			}
+		}
+	);
 
 	const ignoreListener = EditorView.updateListener.of(
 		(update: ViewUpdate) => {
@@ -138,6 +185,7 @@ export function createCodeblockCodeMirrorExtensions(
 						toIgnore || fileIgnore
 							? []
 							: [
+									DebouncedLineDecoratorPlugin,
 									headerDecorations,
 									lineDecorations,
 									foldDecorations,
@@ -226,7 +274,17 @@ export function createCodeblockCodeMirrorExtensions(
 			return buildLineDecorations(state);
 		},
 		update(value: DecorationSet, transaction: Transaction): DecorationSet {
-			return buildLineDecorations(transaction.state);
+			if (checkIfNeedsRebuild(transaction) == true) {
+				return buildLineDecorations(transaction.state);
+			} else if (
+				transaction.docChanged ||
+				transaction.selection ||
+				transaction.reconfigured
+			) {
+				return value.map(transaction.changes);
+			} else {
+				return value;
+			}
 		},
 		provide(field: StateField<DecorationSet>): Extension {
 			return EditorView.decorations.from(field);
@@ -475,7 +533,8 @@ export function createCodeblockCodeMirrorExtensions(
 								transaction.startState,
 								effect.value.toFold
 							)
-						); //TODO (@mayurankv) Does this need to be state
+						);
+					//TODO (@mayurankv) Does this need to be state
 					else
 						addEffects = addEffects.concat(
 							documentFold(transaction.startState)
@@ -766,10 +825,34 @@ export function createCodeblockCodeMirrorExtensions(
 		return builder.finish();
 	}
 
+	function checkIfNeedsRebuild(transaction: Transaction): boolean {
+		//true: typing is paused
+		for (const effect of transaction.effects) {
+			if (effect.is(DebouncedLineDecorationsUpdateEffect)) {
+				return true;
+			}
+
+			// TODO: rebuild after updating settings
+		}
+
+		//false: doc doesn't change
+		if (!transaction.docChanged) {
+			return false;
+		}
+
+		//true: ensure view won't break after inserting new lines
+		if (transaction.state.doc.lines !== transaction.startState.doc.lines) {
+			return true;
+		}
+
+		return false;
+	}
+
 	function buildLineDecorations(state: EditorState): DecorationSet {
 		const builder = new RangeSetBuilder<Decoration>();
 		const sourcePath = state.field(editorInfoField)?.file?.path ?? "";
 		const sourceMode = isSourceMode(state);
+
 		for (
 			let iter = (
 				state.field(headerDecorations, false) ?? Decoration.none
@@ -1234,6 +1317,8 @@ export function createCodeblockCodeMirrorExtensions(
 	];
 }
 
+const DebouncedLineDecorationsUpdateEffect: StateEffectType<null> =
+	StateEffect.define<null>();
 const fold: StateEffectType<{
 	from: number;
 	to: number;
