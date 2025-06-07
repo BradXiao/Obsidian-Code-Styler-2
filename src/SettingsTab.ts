@@ -1178,15 +1178,7 @@ export class SettingsTab extends PluginSettingTab {
 		MarkdownRenderer.render(this.plugin.app,"`"+this.plugin.settings.exampleInlineCode+"`",this.exampleInlineCodeContainer,SETTINGS_SOURCEPATH_PREFIX,this.plugin);
 		this.exampleInlineCodeContainer.querySelector("code")?.classList?.add("code-styler-settings-inline-code");
 	}
-	generateDonationFooter(containerEl: HTMLElement) {
-		containerEl.createEl("hr");
-		const donationDiv = containerEl.createEl("div", { cls: "code-styler-donation", });
-		const donationText = createEl("p", {text: "If you like this plugin, and would like to help support continued development, use the button below!"});
-		donationDiv.appendChild(donationText);
-		const donationButton = createEl("a", { href: "https://www.buymeacoffee.com/mayurankv"});
-		donationButton.innerHTML = "<img src=\"https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=mayurankv&button_colour=e3e7efa0&font_colour=262626&font_family=Inter&outline_colour=262626&coffee_colour=a0522d\" height=\"42px\">";
-		donationDiv.appendChild(donationButton);
-	}
+
 
 	// Create Settings
 	createPickr(plugin: CodeStylerPlugin, containerEl: HTMLElement, setting: Setting, id: string, getRelevantThemeColour: (relevantThemeColours: CodeStylerThemeColours)=>Colour, saveRelevantThemeColour: (relevantThemeColours: CodeStylerThemeColours, saveColour: Colour)=>void, disabled?: ()=>boolean) {

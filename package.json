@@ -1,6 +1,6 @@
 {
-	"name": "code-styler",
-	"version": "1.1.7",
+	"name": "code-styler-2",
+	"version": "2.0.0",
 	"description": "This is a plugin for Obsidian (https://obsidian.md) which lets you style codeblocks and inline code in both editing mode and reading mode.",
 	"main": "main.js",
 	"scripts": {
@@ -8,12 +8,11 @@
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
 		"update": "ncu -u && npm install && node manual-update.mjs",
 		"lint": "eslint --fix --max-warnings=0 src && stylelint --fix --max-warnings=0 src/styles.css src/css",
-		"test": "vitest",
 		"version": "node version-bump.mjs",
 		"rerelease": "node version-rerelease.mjs"
 	},
 	"keywords": [],
-	"author": "Mayuran Visakan",
+	"author": "Brad Xiao",
 	"license": "MIT",
 	"devDependencies": {
 		"@types/node": "^22.8.1",
@@ -48,6 +47,7 @@
 		"@lezer/highlight": "^1.2.1",
 		"@simonwep/pickr": "^1.9.1",
 		"@stylistic/stylelint-plugin": "^3.1.1",
+		"code-styler-2": "file:",
 		"colortranslator": "^4.1.0",
 		"hast": "^1.0.0",
 		"hast-util-from-html": "^2.0.3",
@@ -60,6 +60,7 @@
 		"mugiwara85 <65603765+mugiwara85@users.noreply.github.com>",
 		"Zsolt Szalai <kampimester@gmail.com>",
 		"Dimava <dimava2@ya.ru>",
-		"Michael Naumov <mnaoumov@gmail.com>"
+		"Michael Naumov <mnaoumov@gmail.com>",
+		"BradXiao <brad.821228@gmail.com>"
 	]
 }
