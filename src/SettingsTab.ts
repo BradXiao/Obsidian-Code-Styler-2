@@ -116,7 +116,6 @@ export class SettingsTab extends PluginSettingTab {
 		this.generateAdvancedHeading(containerEl);
 		this.advancedSettingsContainer = containerEl.createDiv();
 		this.generateAdvancedSettings();
-		this.generateDonationFooter(containerEl);
 	}
 
 	displayCodeblockSettings(containerEl: HTMLElement) {
