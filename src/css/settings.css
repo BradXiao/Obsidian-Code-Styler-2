@@ -1,23 +1,28 @@
 .setting-item.code-styler-spaced .checkbox-container + .pickr {
 	padding-left: 10px;
 }
+
 .code-styler-donation {
 	width: 70%;
 	margin: 0 auto;
 	text-align: center;
 }
+
 .code-styler-setting-text-area textarea {
 	width: 400px;
 	height: 220px;
 }
+
 .code-styler-setting-text-wide {
 	width: 100%;
 }
+
 button.code-styler-settings-button.copy-code-button {
 	position: absolute;
 	right: 0;
 	height: auto;
 }
+
 code.code-styler-settings-inline-code {
 	padding: 0.1em 0.25em;
 	border-radius: var(--code-radius);
@@ -26,9 +31,11 @@ code.code-styler-settings-inline-code {
 	font-family: var(--font-monospace);
 	font-size: var(--code-size);
 }
+
 p:has(> code.code-styler-settings-inline-code) {
 	text-align: center;
 }
+
 .advanced-settings-header::after {
 	position: relative;
 	display: inline-block;
@@ -44,9 +51,12 @@ p:has(> code.code-styler-settings-inline-code) {
 	mask-repeat: no-repeat;
 	opacity: 1;
 	scale: 0.9;
-	transition: transform var(--duration-button) ease-out, visibility var(--duration-button), opacity var(--duration-button), scale var(--duration-button) cubic-bezier(0.4, 0.14, 0.3, 1);
+	transition: transform var(--duration-button) ease-out,
+		visibility var(--duration-button), opacity var(--duration-button),
+		scale var(--duration-button) cubic-bezier(0.4, 0.14, 0.3, 1);
 	visibility: visible;
 }
+
 .advanced-settings-header.header-folded::after {
 	transform: rotate(-90deg);
 }

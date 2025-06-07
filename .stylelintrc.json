@@ -14,7 +14,17 @@
 		"liberty/use-logical-spec": "ignore",
 		"plugin/declaration-block-no-ignored-properties": true,
 		"pitcher/no-nested-media": true,
-		"plugin/use-defensive-css": [true, {"accidental-hover": true, "background-repeat": true, "custom-property-fallbacks": true, "flex-wrapping": true, "scroll-chaining": true, "vendor-prefix-grouping": true}],
+		"plugin/use-defensive-css": [
+			true,
+			{
+				"accidental-hover": true,
+				"background-repeat": true,
+				"custom-property-fallbacks": true,
+				"flex-wrapping": true,
+				"scroll-chaining": true,
+				"vendor-prefix-grouping": true
+			}
+		],
 		"plugin/no-low-performance-animation-properties": true,
 		"gamut/color-no-out-gamut-range": true
 	}

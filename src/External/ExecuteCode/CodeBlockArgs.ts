@@ -1,4 +1,4 @@
-import {Notice} from "obsidian";
+import { Notice } from "obsidian";
 import * as JSON5 from "json5";
 
 export type ExportType = "pre" | "post";
@@ -26,7 +26,9 @@ export function getArgs(firstLineOfCode: string): CodeBlockArgs {
 	if (!firstLineOfCode.contains("{") && !firstLineOfCode.contains("}"))
 		return {};
 	try {
-		let args = firstLineOfCode.substring(firstLineOfCode.indexOf("{") + 1).trim();
+		let args = firstLineOfCode
+			.substring(firstLineOfCode.indexOf("{") + 1)
+			.trim();
 		// Transform custom syntax to JSON5
 		args = args.replace(/=/g, ":");
 		// Handle unnamed export arg - pre / post at the beginning of the args without any arg name
@@ -35,11 +37,16 @@ export function getArgs(firstLineOfCode: string): CodeBlockArgs {
 			let i = args.indexOf(exportName);
 			while (i !== -1) {
 				const nextChar = args[i + exportName.length];
-				if (nextChar !== "\"" && nextChar !== "'") {
+				if (nextChar !== '"' && nextChar !== "'") {
 					// Remove from args string
-					args = args.substring(0, i) + args.substring(i + exportName.length + (nextChar === "}" ? 0 : 1));
+					args =
+						args.substring(0, i) +
+						args.substring(
+							i + exportName.length + (nextChar === "}" ? 0 : 1)
+						);
 					exports.push(exportName);
 				}
+
 				i = args.indexOf(exportName, i + 1);
 			}
 		};
@@ -48,7 +55,9 @@ export function getArgs(firstLineOfCode: string): CodeBlockArgs {
 		args = `{export: ['${exports.join("', '")}'], ${args}`;
 		return JSON5.parse(args);
 	} catch (err) {
-		new Notice(`Failed to parse code block arguments from line:\n${firstLineOfCode}\n\nFailed with error:\n${err}`);
+		new Notice(
+			`Failed to parse code block arguments from line:\n${firstLineOfCode}\n\nFailed with error:\n${err}`
+		);
 		return {};
 	}
 }
