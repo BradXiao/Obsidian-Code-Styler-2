@@ -127,9 +127,7 @@ body {
 	--line-active-wrapping: pre-wrap;
 }
 
-.code-styler
-	pre.code-styler-pre
-	code:not(:has(> input[style*="display: inline;"])):active {
+.code-styler pre.code-styler-pre {
 	--line-wrapping: var(--line-active-wrapping) !important;
 }
 
