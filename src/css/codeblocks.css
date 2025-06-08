@@ -68,6 +68,10 @@ body {
 	margin-bottom: 0px;
 }
 
+.vertical-tabs-container .code-styler-pre-parent {
+	position: relative;
+}
+
 .code-styler pre.code-styler-pre {
 	overflow: hidden !important;
 	min-height: unset;
