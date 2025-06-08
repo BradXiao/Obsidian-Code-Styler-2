@@ -715,7 +715,7 @@ function getOpeningLine(codeblockLines: Array<string>): string | undefined {
 }
 
 export function testOpeningLine(codeblockLine: string): string {
-	const lineMatch = /^(\s*(?:>\s*)*)(```+|~~~+)/.exec(codeblockLine);
+	const lineMatch = /^(\s*(?:>\s*)*}*)(```+|~~~+)/.exec(codeblockLine);
 	if (!lineMatch) return "";
 	if (
 		codeblockLine.indexOf(
