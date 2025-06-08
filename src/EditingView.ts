@@ -268,13 +268,38 @@ export function createCodeblockCodeMirrorExtensions(
 			return EditorView.decorations.from(field);
 		},
 	});
+
+	let decorationUpdateTimeout: NodeJS.Timeout | null = null;
+	let forceUpdate = false;
 	const lineDecorations = StateField.define<DecorationSet>({
 		//TODO (@mayurankv) Deal with source mode - make apply styling in source mode
 		create(state: EditorState): DecorationSet {
 			return buildLineDecorations(state);
 		},
 		update(value: DecorationSet, transaction: Transaction): DecorationSet {
-			if (checkIfNeedsRebuild(transaction) == true) {
+			if (
+				forceUpdate == true ||
+				checkIfNeedsRebuild(transaction) == true
+			) {
+				if (decorationUpdateTimeout) {
+					return value.map(transaction.changes);
+				} else {
+					if (forceUpdate == true) {
+						forceUpdate = false;
+						return buildLineDecorations(transaction.state);
+					}
+
+					decorationUpdateTimeout = setTimeout(() => {
+						decorationUpdateTimeout = null;
+						forceUpdate = true;
+						const view = transaction.state.field(editorEditorField);
+						view.dispatch({
+							effects:
+								DebouncedLineDecorationsUpdateEffect.of(null),
+						});
+					}, 150);
+				}
+
 				return buildLineDecorations(transaction.state);
 			} else if (
 				transaction.docChanged ||
