@@ -68,6 +68,10 @@ body {
 	margin-bottom: 0px;
 }
 
+.vertical-tabs-container .code-styler-pre-parent {
+	position: relative;
+}
+
 .code-styler pre.code-styler-pre {
 	overflow: hidden !important;
 	min-height: unset;
@@ -661,7 +665,7 @@ pre.code-styler-pre.hide-scroll code::-webkit-scrollbar {
 
 pre.code-styler-pre button {
 	display: unset !important;
-	padding: 0 !important;
+	/* padding: 0 !important; */
 	border: none !important;
 	margin: 0;
 	margin-top: 0 !important;
@@ -786,7 +790,16 @@ pre.code-styler-pre button.run-code-button:active, /*? Execute Code Plugin Compa
 	transition: scale var(--duration-button) cubic-bezier(0.4, 0.14, 0.3, 1);
 }
 
-pre.code-styler-pre button.copy-code-button::before,
+pre.code-styler-pre button.copy-code-button::before {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	padding-right: 4px;
+	content: "\200b";
+	mask-repeat: no-repeat;
+	vertical-align: 1px;
+}
+
 .markdown-source-view.mod-cm6
 	.HyperMD-codeblock.code-styler-line
 	span.code-block-flair::before {
