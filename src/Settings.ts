@@ -635,7 +635,7 @@ export const DEFAULT_SETTINGS: CodeStylerSettings = {
 	externalReferenceUpdateOnLoad: false,
 	processedCodeblocksWhitelist: WHITELIST_CODEBLOCKS,
 	redirectLanguages: {},
-	version: "1.1.7",
+	version: "2.0.1",
 };
 
 export function convertSettings(
@@ -756,6 +756,7 @@ const settingsUpdaters: Record<
 		),
 	"1.1.5": settingsPreserve,
 	"1.1.6": settingsPreserve,
+	"1.1.7": settingsPreserve,
 };
 
 // Constants
