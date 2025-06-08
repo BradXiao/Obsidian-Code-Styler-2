@@ -27,6 +27,8 @@ const settingsUpdaterText = /const settingsUpdaters: Record<\n\tstring,\n\t\(set
 writeFileSync("src/settings.ts",settingsText.replace(/(?<=export const DEFAULT_SETTINGS: CodeStylerSettings = {[\s\S]*?version: ")(.*)(?="[\s\S]*?})/,newVersion).replace(settingsUpdaterText,settingsUpdaterText+(settingsUpdaterText.split("\n").some(line=>line.trim().startsWith(`"${lastVersion}"`))?"":`\t"${lastVersion}": settingsPreserve,\n`)));
 
 // Push to origin
-exec(`git add . && git commit -m 'Ready release ${newVersion}' && git push && git tag -a $npm_package_version -F- <<EOF && git push origin $npm_package_version
-$release_notes
-EOF`,(error)=>console.log(error));
+const releaseNotes = process.env.release_notes;
+exec(`git add . && git commit -m "Ready release ${newVersion}" && git push && git tag -a ${newVersion} -m "${releaseNotes}" && git push origin ${newVersion}`, (error) => {
+    if (error) console.error(error);
+    else console.log(`Successfully released version ${newVersion}`);
+});
