@@ -21,6 +21,14 @@ See this project's [releases](/../../releases).
 
 ## [Unreleased]
 
+### Fixed
+-   Cursor lagging in latex (math) codeblocks [#324](https://github.com/mayurankv/Obsidian-Code-Styler/issues/324)
+-   Copy button duplicated in reading view [#325](https://github.com/mayurankv/Obsidian-Code-Styler/issues/325), [#303](https://github.com/mayurankv/Obsidian-Code-Styler/issues/303)
+-   Broken copy button in settings [#328](https://github.com/mayurankv/Obsidian-Code-Styler/issues/328)
+-   Broken rendering [#268](https://github.com/mayurankv/Obsidian-Code-Styler/issues/268)
+
+
+
 ## [2.0.1] - 2025-06-08
 
 ### Fixed
