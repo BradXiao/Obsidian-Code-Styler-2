@@ -21,6 +21,8 @@ See this project's [releases](/../../releases).
 
 ## [Unreleased]
 
+## [2.0.2] - 2025-06-08
+
 ### Fixed
 -   Cursor lagging in latex (math) codeblocks [#324](https://github.com/mayurankv/Obsidian-Code-Styler/issues/324)
 -   Copy button duplicated in reading view [#325](https://github.com/mayurankv/Obsidian-Code-Styler/issues/325), [#303](https://github.com/mayurankv/Obsidian-Code-Styler/issues/303)
@@ -339,7 +341,8 @@ See this project's [releases](/../../releases).
 -   Updated [README](README.md).
 -   Removed `none` language from supported languages since it is used by obsidian for codeblocks without a language
 
-[Unreleased]: /../../compare/2.0.1...HEAD
+[Unreleased]: /../../compare/2.0.2...HEAD
+[2.0.2]: /../../compare/2.0.1...2.0.2
 [2.0.1]: /../../compare/1.1.7...2.0.1
 [1.1.7]: /../../compare/1.1.6...1.1.7
 [1.1.6]: /../../compare/1.1.5...1.1.6
