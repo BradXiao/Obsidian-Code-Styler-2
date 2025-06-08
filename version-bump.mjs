@@ -28,7 +28,8 @@ writeFileSync("src/settings.ts",settingsText.replace(/(?<=export const DEFAULT_S
 
 // Push to origin
 const releaseNotes = process.env.release_notes;
-exec(`git add . && git commit -m "Ready release ${newVersion}" && git push && git tag -a ${newVersion} -m "${releaseNotes}" && git push origin ${newVersion}`, (error) => {
+console.log(`${releaseNotes}`);
+exec(`git add . && git commit --allow-empty -m "Ready release ${newVersion}" && git push && git tag -a ${newVersion} -m "${releaseNotes}" && git push origin ${newVersion}`, (error) => {
     if (error) console.error(error);
     else console.log(`Successfully released version ${newVersion}`);
 });
